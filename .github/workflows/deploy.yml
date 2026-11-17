@@ -1,9 +1,9 @@
-
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # Jalankan otomatis setiap kali push ke branch main
+    branches: [ main ]
+  workflow_dispatch: # Mengizinkan Anda menekan tombol "Run workflow" secara manual dari browser
 
 permissions:
   contents: read
@@ -23,5 +23,17 @@ jobs:
 
       - name: Install, build, and upload with Node
         uses: withastro/action@v3
-        # Action resmi Astro ini otomatis mendeteksi package manager (npm/yarn/pnpm)
-        # dan mem-build folder output ke ./dist secara otomatis
+        with:
+          path: .
+          node-version: 20
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
