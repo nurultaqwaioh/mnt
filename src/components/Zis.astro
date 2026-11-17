@@ -1,0 +1,46 @@
+---
+---
+<section class="w-full py-space-2xl bg-surface" id="zis">
+  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-space-xl">
+    <div class="text-center max-w-3xl mx-auto flex flex-col gap-space-xs">
+      <span class="font-label text-xs text-secondary-gold uppercase tracking-widest font-bold">Kebajikan & Berkah</span>
+      <h2 class="font-display text-3xl font-bold text-on-surface">Layanan Zakat, Infak & Sedekah</h2>
+      <p class="font-body text-base text-on-surface-variant">Salurkan kepedulian Anda melalui unit pengelola ZIS yang kredibel dan transparan di Masjid Nurul Taqwa.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-start">
+      <!-- Calculator Form -->
+      <div class="lg:col-span-7 bg-surface-container-lowest p-space-xl rounded-2xl shadow-md flex flex-col gap-space-md">
+        <h3 class="font-display text-xl font-bold text-on-surface">Formulir Donasi Online</h3>
+        
+        <div class="grid grid-cols-3 gap-space-xs">
+          <button class="nominal-btn py-2 px-3 rounded-lg bg-primary-container text-on-primary font-label text-xs" onclick="setNominal('250.000')">Rp 250.000</button>
+          <button class="nominal-btn py-2 px-3 rounded-lg bg-surface-container text-on-surface font-label text-xs" onclick="setNominal('500.000')">Rp 500.000</button>
+          <button class="nominal-btn py-2 px-3 rounded-lg bg-surface-container text-on-surface font-label text-xs" onclick="setNominal('1.000.000')">Rp 1.000.000</button>
+        </div>
+
+        <input class="w-full p-3 border rounded-lg" id="custom-amount" type="text" value="250.000" />
+        <button class="w-full py-3 bg-primary-container hover:bg-primary text-on-primary font-display font-bold rounded-lg" type="button">Lanjutkan Pembayaran</button>
+      </div>
+
+      <!-- QRIS & Bank Info -->
+      <div class="lg:col-span-5 flex flex-col gap-space-md">
+        <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md flex flex-col items-center text-center gap-4">
+          <div class="text-left w-full">
+            <h4 class="font-display font-bold">QRIS Masjid Nurul Taqwa</h4>
+            <span class="text-xs text-on-surface-variant">NMID: ID1020084592019</span>
+          </div>
+          <!-- Simple Simulated QR Code -->
+          <div class="w-40 h-40 bg-zinc-200 flex items-center justify-center font-label text-xs font-bold text-zinc-500 rounded-lg">QR CODE SCAN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  function setNominal(amount) {
+    const input = document.getElementById('custom-amount');
+    if (input) input.value = amount;
+  }
+</script>

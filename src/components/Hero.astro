@@ -1,0 +1,247 @@
+---
+// Data Fallback jika API sedang loading/offline
+const defaultTimes = [
+  { name: 'Subuh', key: 'subuh', time: '04:42' },
+  { name: 'Dzuhur', key: 'dzuhur', time: '12:05' },
+  { name: 'Ashar', key: 'ashar', time: '15:15' },
+  { name: 'Maghrib', key: 'maghrib', time: '18:12' },
+  { name: 'Isya', key: 'isya', time: '19:22' },
+];
+
+const sideArticles = [
+  {
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC1019xSkZAlJb4HfokGriEb0ZDdgUcnyn3bPW4f4FN6tQ6yJyVAaOlHoFLao89pEh4pueTpeYsk70rmYCoyvfdbGD_zpbaepjXEphTZntqJ7E2oA39SXm7XvZE2UmGnuRycdmoVjvuehFI2_HbwINlH5bVrK4j9m9VzoPwlEV-FK88LdqvsYdkUM6d7F2oMTX2_58ugK6MfCmFAZR8N5ILcI4aJOjdifgjd6NNIB8",
+    date: "15 Jan, 2026",
+    readTime: "5 min Read",
+    title: "Kultum Ba'da Dzuhur: Memperkokoh Etos Kerja & Integritas Profesional Muslim"
+  },
+  {
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBjmdr5vepMlwfhBnPz1jzJ6XEpGn9buJlLks7dugrDNJDChALsW57hZYftkmxMNJ_6Dw5g5cNekQo3SUoNA6BfKl1mh3l52zwa14p7vGspGZq6v790hfKfF8DckWvXB4VrbIraHnJFPBgSIobUUUJacACUVKjjRCu4M9V9796etsxBIBLEQXbbH3seUVP_bzSUcesC53sKpLy7gqwbg5AK_Nn-Pxu8RCDZlJZpae4",
+    date: "14 Jan, 2026",
+    readTime: "3 min Read",
+    title: "Persiapan Sholat Jum'at Berjamaah & Distribusi 800 Box Sedekah Berkah"
+  },
+  {
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAnkGIHiY2fxrlLKL-nLz8Et4sUIX0PVHcHv-G54RnlMyasavPeQCcRin7ak6NkOFps6ZvcrY3DEdb2gGFm7AJWq1fZIiiJ8JX2V8RITxkyOjJ0k-5_1i4E1xA1q1cJtRSYYAi9IHUTDYa6zL95uKRlImWb1dqej5fFxClL2DH93LQtTOStBRWNqSb6Mmu09kmThwOLooXF1LREplvQ_UeWCbiYhhl197ZxAqFvzdw",
+    date: "13 Jan, 2026",
+    readTime: "4 min Read",
+    title: "Sinergi Karyawan Indosat: Program Wakaf Produktif Masjid Nurul Taqwa"
+  },
+  {
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD7pJd8xH2x0P_pf7D3od82bu5WkIsI47fG93EbZS4ZyZVEVYIDdxPRG8XVX66pdhoIHY7BZT9XvS9Q7Jco30dv-tcu_Chn-5_7zrFuCJ0PO-O3adRQrdc6bZoXVrKlk0k6arqY608k7yrnUlcO7lVipAim-_PLpMMuv2wO7zl3d3SxIAyqxcPhSTCd2qNNUz4CAtNYZYLNp329uak1ljguK69vHRAVpdq4_C6Mz6o",
+    date: "11 Jan, 2026",
+    readTime: "2 min Read",
+    title: "Penyaluran Beasiswa Pendidikan Generasi Taqwa untuk Putra-Putri Cleaning Service"
+  }
+];
+---
+
+<section class="relative w-full overflow-hidden bg-surface py-6 lg:py-10" id="hero">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 flex flex-col gap-6 relative z-10">
+    
+    <!-- GRID LAYOUT UTAMA (Persis Gambar Referensi) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      
+      <!-- SISI KIRI: Featured Large Banner (7/12 width) -->
+      <div class="lg:col-span-8 relative rounded-2xl overflow-hidden shadow-md group min-h-[400px] lg:min-h-[500px] flex flex-col justify-between bg-zinc-900">
+        <!-- Background Image dengan Dark Overlay -->
+        <div class="absolute inset-0 z-0">
+          <img 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIUCiHNb0rCZry0nFdGFxI2_LHrZ8lxonxI7QFxdYl6q7QpR8LKYTf0gD3ax1v9TtKrsIOM7e30DAlMaeoqZus6lBNvgds2YbFOKX7AJfCzCgYYH-wPfniFhm0wM3BdHZhvlwV6ICQ51maOzsr4bz7v-MmQwoebx3WbtUZkJArKxxXecilXDtSjzmFafe4wu3dRCfTEP6DfN69iu52ZOvmHuRpAL6rJcbhRiDmBXc" 
+            alt="Kegiatan Masjid Nurul Taqwa" 
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+        </div>
+
+        <!-- Bagian Atas: Badge -->
+        <div class="relative z-10 p-6">
+          <span class="inline-block bg-white text-on-surface font-display text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">
+            Kabar Utama
+          </span>
+        </div>
+
+        <!-- Bagian Bawah: Judul & Sub-deskripsi -->
+        <div class="relative z-10 p-6 md:p-8 flex flex-col gap-3 mt-auto">
+          <h1 class="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight tracking-tight">
+            Membina Insan Taqwa, Membangun Sinergi Kejayaan Ummat di Lingkungan PT Indosat Tbk
+          </h1>
+          <p class="font-body text-sm md:text-base text-zinc-200 line-clamp-2 max-w-3xl">
+            Mewujudkan harmoni spiritual dan profesionalitas berkelas dunia melalui program dakwah kontemporer, kemandirian ekonomi, serta transparansi kepedulian sosial berkesinambungan.
+          </p>
+        </div>
+      </div>
+
+      <!-- SISI KANAN: Vertical List Cards (4/12 width) -->
+      <div class="lg:col-span-4 flex flex-col justify-between gap-4">
+        {sideArticles.map((article) => (
+          <div class="flex items-center gap-4 p-3 bg-surface-container-lowest hover:bg-surface-container-low border border-zinc-100/80 hover:border-zinc-200/50 rounded-2xl shadow-sm transition-all duration-300">
+            <!-- Thumbnail Gambar -->
+            <div class="w-24 h-20 md:w-28 md:h-24 rounded-xl overflow-hidden shrink-0 bg-zinc-100">
+              <img 
+                class="w-full h-full object-cover" 
+                src={article.image} 
+                alt={article.title} 
+                loading="lazy"
+              />
+            </div>
+            <!-- Metadata & Headline -->
+            <div class="flex flex-col gap-1.5 flex-1 min-w-0">
+              <div class="flex items-center justify-between text-[11px] font-label text-zinc-400 font-medium">
+                <span>{article.date}</span>
+                <span>{article.readTime}</span>
+              </div>
+              <h3 class="font-display text-xs md:text-sm font-bold text-on-surface leading-snug line-clamp-2 hover:text-primary transition-colors">
+                {article.title}
+              </h3>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <!-- LIVE JADWAL SHOLAT BAR (Diletakkan di bawah grid utama agar komposisi seimbang) -->
+    <div class="w-full bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col gap-4 border border-zinc-100/80">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-2 border-b border-zinc-100">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-2xl">schedule</span>
+          <div>
+            <h2 class="font-display text-base font-bold text-on-surface">Jadwal Sholat Hari Ini</h2>
+            <p class="font-label text-[11px] text-on-surface-variant" id="prayer-date-label">DKI Jakarta &bull; WIB</p>
+          </div>
+        </div>
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-container/40 text-on-secondary-container">
+          <span class="material-symbols-outlined text-sm">notifications_active</span>
+          <span class="font-label text-xs font-semibold" id="prayer-status-text">
+            Menghitung waktu...
+          </span>
+        </div>
+      </div>
+      
+      <!-- Jam Sholat Row -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3" id="prayer-cards-container">
+        {defaultTimes.map((item) => (
+          <div 
+            id={`card-${item.key}`} 
+            class="p-4 rounded-xl bg-surface-container-low transition-all duration-300 flex flex-col gap-1"
+          >
+            <span class="font-label text-xs text-on-surface-variant uppercase tracking-wider font-semibold">{item.name}</span>
+            <span id={`time-${item.key}`} class="font-display text-lg font-bold text-on-surface tabular-nums">{item.time}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Client Script untuk update Jadwal Sholat Real-Time -->
+<script is:inline>
+  (async function initLivePrayerSchedule() {
+    const CITY_ID = '1301'; // Jakarta Pusat
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+
+    let prayerTimes = {
+      subuh: '04:42',
+      dzuhur: '12:05',
+      ashar: '15:15',
+      maghrib: '18:12',
+      isya: '19:22',
+    };
+
+    try {
+      const res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/${CITY_ID}/${year}/${month}/${day}`);
+      const json = await res.json();
+      if (json.status && json.data?.jadwal) {
+        const j = json.data.jadwal;
+        prayerTimes = {
+          subuh: j.subuh,
+          dzuhur: j.dzuhur,
+          ashar: j.ashar,
+          maghrib: j.maghrib,
+          isya: j.isya,
+        };
+
+        const dateLabel = document.getElementById('prayer-date-label');
+        if (dateLabel && j.tanggal) {
+          dateLabel.innerText = `${j.tanggal} • DKI Jakarta (WIB)`;
+        }
+
+        Object.entries(prayerTimes).forEach(([key, val]) => {
+          const el = document.getElementById(`time-${key}`);
+          if (el) el.innerText = val;
+        });
+      }
+    } catch (err) {
+      console.warn('Gagal fetch jadwal sholat, memakai default offline:', err);
+    }
+
+    function updateCountdown() {
+      const current = new Date();
+      const prayers = [
+        { name: 'Subuh', key: 'subuh', time: prayerTimes.subuh },
+        { name: 'Dzuhur', key: 'dzuhur', time: prayerTimes.dzuhur },
+        { name: 'Ashar', key: 'ashar', time: prayerTimes.ashar },
+        { name: 'Maghrib', key: 'maghrib', time: prayerTimes.maghrib },
+        { name: 'Isya', key: 'isya', time: prayerTimes.isya },
+      ];
+
+      let nextPrayer = null;
+      let targetTime = null;
+
+      for (const p of prayers) {
+        const [h, m] = p.time.split(':').map(Number);
+        const pDate = new Date();
+        pDate.setHours(h, m, 0, 0);
+
+        if (pDate > current) {
+          nextPrayer = p;
+          targetTime = pDate;
+          break;
+        }
+      }
+
+      if (!nextPrayer) {
+        nextPrayer = prayers[0];
+        const [h, m] = prayers[0].time.split(':').map(Number);
+        targetTime = new Date();
+        targetTime.setDate(targetTime.getDate() + 1);
+        targetTime.setHours(h, m, 0, 0);
+      }
+
+      prayers.forEach((p) => {
+        const card = document.getElementById(`card-${p.key}`);
+        const timeEl = document.getElementById(`time-${p.key}`);
+        if (!card) return;
+
+        if (p.key === nextPrayer.key) {
+          card.className = 'p-4 rounded-xl bg-primary text-on-primary shadow-md flex flex-col gap-1 ring-2 ring-primary/10';
+          if (timeEl) timeEl.className = 'font-display text-lg font-bold text-on-primary tabular-nums';
+        } else {
+          card.className = 'p-4 rounded-xl bg-surface-container-low flex flex-col gap-1';
+          if (timeEl) timeEl.className = 'font-display text-lg font-bold text-on-surface tabular-nums';
+        }
+      });
+
+      const diffMs = targetTime.getTime() - current.getTime();
+      const diffSec = Math.max(0, Math.floor(diffMs / 1000));
+
+      const hrs = String(Math.floor(diffSec / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((diffSec % 3600) / 60)).padStart(2, '0');
+      const secs = String(diffSec % 60).padStart(2, '0');
+
+      const statusEl = document.getElementById('prayer-status-text');
+      if (statusEl) {
+        statusEl.innerHTML = `Menuju <b>${nextPrayer.name}</b>: <span class="tabular-nums font-mono">${hrs}:${mins}:${secs}</span>`;
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+</script>

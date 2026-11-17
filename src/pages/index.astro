@@ -1,16 +1,26 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Kajian from '../components/Kajian.astro';
+import Zis from '../components/Zis.astro';
+import UnitBisnis from '../components/UnitBisnis.astro';
+import Berita from '../components/Berita.astro';
+import Laporan from '../components/Laporan.astro';
+import Kontak from '../components/Kontak.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Masjid Nurul Taqwa PT Indosat Tbk - Portal Dakwah & Kebaikan">
+  <Header />
+  <main class="w-full pt-20 bg-surface min-h-screen">
+    <Hero />
+    <Kajian />
+    <Zis />
+    <UnitBisnis />
+    <Berita />
+    <Laporan />
+    <Kontak />
+  </main>
+  <Footer />
+</Layout>

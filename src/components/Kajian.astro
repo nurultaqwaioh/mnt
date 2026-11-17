@@ -1,0 +1,283 @@
+---
+const jadwalHarian = [
+  {
+    day: 'Senin',
+    dayIndex: 1, // Untuk auto-highlight hari Senin
+    time: "Ba'da Dzuhur (12.15 WIB)",
+    category: 'Tafsir & Tadabbur',
+    title: "Tadabbur Al-Qur'an & Tazkiyatun Nafs",
+    speaker: 'Ustadz Dr. H. Fahmi Salim, Lc., MA',
+    location: 'Ruang Utama Lt. 4',
+    icon: 'menu_book',
+  },
+  {
+    day: 'Selasa',
+    dayIndex: 2,
+    time: "Ba'da Dzuhur (12.15 WIB)",
+    category: 'Sirah & Akhlak',
+    title: 'Keteladanan Kepemimpinan Rasulullah SAW',
+    speaker: 'Ustadz Budi Ashari, Lc.',
+    location: 'Ruang Utama Lt. 4',
+    icon: 'history_edu',
+  },
+  {
+    day: 'Rabu',
+    dayIndex: 3,
+    time: "Ba'da Dzuhur (12.15 WIB)",
+    category: 'Fiqih Kontemporer',
+    title: 'Fiqih Muamalah & Etika Profesi Modern',
+    speaker: 'Ustadz Dr. Oni Sahroni, M.A.',
+    location: 'Ruang Utama Lt. 4',
+    icon: 'balance',
+  },
+  {
+    day: 'Kamis',
+    dayIndex: 4,
+    time: "Ba'da Dzuhur (12.15 WIB)",
+    category: 'Hadits & Aqidah',
+    title: 'Syarah Riyadush Shalihin: Amal Hati',
+    speaker: 'Ustadz Muhammad Nuzul Dzikri, Lc.',
+    location: 'Ruang Utama Lt. 4',
+    icon: 'auto_stories',
+  },
+];
+
+const jadwalJumat = {
+  day: "Jum'at",
+  dayIndex: 5,
+  khutbah: {
+    time: '11.45 - 12.45 WIB',
+    category: "Khutbah Sholat Jum'at",
+    title: '"Integritas & Amanah: Pilar Kinerja Unggul"',
+    speaker: 'Prof. Dr. KH. Nasaruddin Umar, MA',
+    location: 'Ruang Utama Masjid Lt. 4',
+    kuotaInfaq: 90,
+    terkumpul: '720 / 800 Box',
+  },
+  muslimah: {
+    time: '11.30 - 12.45 WIB',
+    category: 'Kajian Khusus Muslimah',
+    title: 'Muslimah Berdaya: Menjaga Fitrah di Dunia Kerja',
+    speaker: 'Ustadzah Dr. Oki Setiana Dewi',
+    location: 'Aula Serbaguna Muslimah Lt. 4',
+  }
+};
+---
+
+<section class="w-full py-space-2xl bg-surface-container-low" id="jadwal-kajian">
+  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-space-xl">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+      <div class="flex flex-col gap-space-xs max-w-2xl">
+        <div class="inline-flex items-center gap-2 text-secondary-gold">
+          <span class="material-symbols-outlined text-[18px]">event_note</span>
+          <span class="font-label text-xs uppercase tracking-widest font-bold">Agenda Sepekan (Senin – Jum'at)</span>
+        </div>
+        <h2 class="font-display text-3xl font-bold text-on-surface tracking-tight">Jadwal Kajian Rutin & Majelis Ilmu</h2>
+        <p class="font-body text-base text-on-surface-variant">
+          Hadir setiap hari kerja Senin hingga Jum'at untuk menyegarkan ruhiyah dan wawasan keislaman di sela aktivitas kantor Anda.
+        </p>
+      </div>
+
+      <!-- Legend Indikator Hari -->
+      <div class="flex items-center gap-3 bg-surface-container-lowest px-4 py-2.5 rounded-xl shadow-xs border border-zinc-200/60 self-start md:self-auto">
+        <span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+        <span class="font-label text-xs font-semibold text-on-surface" id="today-kajian-indicator">
+          Menampilkan Jadwal Senin – Jum'at
+        </span>
+      </div>
+    </div>
+
+    <!-- BAGIAN 1: GRID 4 HARI (SENIN - KAMIS) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {jadwalHarian.map((item) => (
+        <div 
+          data-day-index={item.dayIndex}
+          class="kajian-card group relative rounded-2xl bg-surface-container-lowest p-5 shadow-sm hover:shadow-md border border-zinc-200/60 transition-all duration-300 flex flex-col justify-between gap-4"
+        >
+          <!-- Top Bar: Hari & Icon -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="day-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container text-primary font-display text-xs font-bold uppercase tracking-wider">
+                {item.day}
+              </span>
+              <div class="w-9 h-9 rounded-xl bg-surface-container-low text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                <span class="material-symbols-outlined text-[20px]">{item.icon}</span>
+              </div>
+            </div>
+
+            <!-- Waktu & Kategori -->
+            <div class="flex flex-col gap-0.5 pt-1">
+              <span class="font-label text-[11px] font-semibold text-secondary-gold uppercase tracking-wider">
+                {item.category}
+              </span>
+              <span class="font-label text-xs text-on-surface-variant flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">schedule</span>
+                {item.time}
+              </span>
+            </div>
+
+            <!-- Judul Materi -->
+            <h3 class="font-display text-base font-bold text-on-surface leading-snug group-hover:text-primary transition-colors">
+              {item.title}
+            </h3>
+          </div>
+
+          <!-- Pemateri & Lokasi -->
+          <div class="pt-3 border-t border-zinc-100 flex flex-col gap-1.5">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-[18px]">record_voice_over</span>
+              <span class="font-body text-xs font-bold text-on-surface line-clamp-1">{item.speaker}</span>
+            </div>
+            <div class="flex items-center gap-2 text-on-surface-variant">
+              <span class="material-symbols-outlined text-[16px]">location_on</span>
+              <span class="font-label text-[11px]">{item.location}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- BAGIAN 2: HARI JUM'AT SPESIAL (2 AGENDA: KHUTBAH JUM'AT & KAJIAN MUSLIMAH) -->
+    <div 
+      data-day-index={jadwalJumat.dayIndex}
+      class="kajian-card rounded-2xl bg-gradient-to-br from-primary via-primary-container to-[#4a0019] text-on-primary p-6 lg:p-8 shadow-lg relative overflow-hidden"
+    >
+      <!-- Ornamen Latar -->
+      <div class="absolute -right-16 -bottom-16 w-64 h-64 rounded-full bg-white/5 blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col gap-6">
+        <!-- Header Hari Jum'at -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-1.5 rounded-xl bg-white text-primary font-display text-sm font-extrabold uppercase tracking-wider shadow-xs">
+              HARI JUM'AT
+            </span>
+            <div>
+              <h3 class="font-display text-lg md:text-xl font-bold text-white">Agenda Spesial Hari Jum'at</h3>
+              <p class="font-label text-xs text-white/80">2 Kegiatan Paralel: Ibadah Sholat Jum'at & Majelis Ilmu Muslimah</p>
+            </div>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label text-xs font-bold">
+            <span class="material-symbols-outlined text-[16px]">stars</span>
+            Pekan Ini
+          </span>
+        </div>
+
+        <!-- Grid 2 Kolom untuk Agenda Jum'at -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          
+          <!-- Kolom Kiri (7/12): Khutbah Sholat Jum'at -->
+          <div class="lg:col-span-7 bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/15 flex flex-col justify-between gap-4">
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center justify-between gap-2">
+                <span class="inline-flex items-center gap-1.5 text-xs font-label font-bold uppercase tracking-wider text-secondary-container">
+                  <span class="material-symbols-outlined text-[16px]">mosque</span>
+                  {jadwalJumat.khutbah.category}
+                </span>
+                <span class="text-xs font-label text-white/80 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">schedule</span>
+                  {jadwalJumat.khutbah.time}
+                </span>
+              </div>
+
+              <h4 class="font-display text-xl font-bold text-white leading-snug mt-1">
+                {jadwalJumat.khutbah.title}
+              </h4>
+
+              <div class="flex flex-wrap items-center gap-4 mt-2 text-sm text-white/90">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-secondary-container text-[18px]">person</span>
+                  <span class="font-semibold">Khotib: {jadwalJumat.khutbah.speaker}</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-white/75 text-xs">
+                  <span class="material-symbols-outlined text-[16px]">location_on</span>
+                  <span>{jadwalJumat.khutbah.location}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bar Kuota Konsumsi Jum'at Berkah -->
+            <div class="bg-black/25 rounded-xl p-3.5 flex flex-col gap-1.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-label font-semibold text-white/90">Kuota Infaq Konsumsi Jum'at Berkah</span>
+                <span class="font-label font-bold text-secondary-container">{jadwalJumat.khutbah.terkumpul} ({jadwalJumat.khutbah.kuotaInfaq}%)</span>
+              </div>
+              <div class="w-full h-2 bg-white/15 rounded-full overflow-hidden">
+                <div class="bg-secondary-container h-full rounded-full" style={`width: ${jadwalJumat.khutbah.kuotaInfaq}%`}></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kolom Kanan (5/12): 1 Kajian Khusus Muslimah -->
+          <div class="lg:col-span-5 bg-surface-container-lowest text-on-surface rounded-2xl p-5 shadow-md flex flex-col justify-between gap-4 border-2 border-secondary-container">
+            <div class="flex flex-col gap-2.5">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-pink-100 text-primary font-label text-[11px] font-bold uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[15px]">female</span>
+                  {jadwalJumat.muslimah.category}
+                </span>
+                <span class="font-label text-xs text-on-surface-variant font-medium flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">schedule</span>
+                  {jadwalJumat.muslimah.time}
+                </span>
+              </div>
+
+              <h4 class="font-display text-lg font-bold text-primary leading-snug">
+                {jadwalJumat.muslimah.title}
+              </h4>
+
+              <p class="font-body text-xs text-on-surface-variant leading-relaxed">
+                Kajian rutin khusus karyawati (Muslimah) PT Indosat Tbk setiap hari Jum'at siang. Terbuka untuk seluruh muslimah.
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-zinc-100 flex flex-col gap-1.5">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-[18px]">record_voice_over</span>
+                <span class="font-body text-xs font-bold text-on-surface">{jadwalJumat.muslimah.speaker}</span>
+              </div>
+              <div class="flex items-center gap-2 text-on-surface-variant">
+                <span class="material-symbols-outlined text-[16px]">location_on</span>
+                <span class="font-label text-[11px]">{jadwalJumat.muslimah.location}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Script Otomatis Menandai Hari Ini -->
+<script is:inline>
+  (function highlightTodayKajian() {
+    const todayIndex = new Date().getDay(); // 1 = Senin, ..., 5 = Jum'at
+    const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu'];
+    const indicatorEl = document.getElementById('today-kajian-indicator');
+
+    if (indicatorEl) {
+      if (todayIndex >= 1 && todayIndex <= 5) {
+        indicatorEl.innerHTML = `Hari Ini: <b>${dayNames[todayIndex]}</b> (Kajian Aktif)`;
+      } else {
+        indicatorEl.innerHTML = `Akhir Pekan • Kajian kembali hadir hari <b>Senin</b>`;
+      }
+    }
+
+    const cards = document.querySelectorAll('.kajian-card');
+    cards.forEach((card) => {
+      const cardDay = Number(card.getAttribute('data-day-index'));
+      if (cardDay === todayIndex && cardDay <= 4) {
+        card.classList.add('ring-2', 'ring-primary', 'bg-surface-container-low/60');
+        const badge = card.querySelector('.day-badge');
+        if (badge) {
+          badge.className = 'day-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary text-on-primary font-display text-xs font-bold uppercase tracking-wider';
+          badge.innerHTML += ' • HARI INI';
+        }
+      }
+    });
+  })();
+</script>
