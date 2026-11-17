@@ -1,22 +1,130 @@
 ---
+import { programsData } from '../data/program';
+
+// Mengambil base URL dari astro.config.mjs (misal: '/mnt' atau '') agar link tidak 404 di GitHub Pages
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
-<section class="w-full py-space-2xl bg-surface" id="berita-artikel">
-  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-space-xl">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
-      <div class="flex flex-col gap-space-xs">
-        <span class="font-label text-xs text-secondary-gold uppercase tracking-widest font-bold">Literasi & Kabar</span>
-        <h2 class="font-display text-3xl font-bold text-on-surface">Kabar Masjid & Inspirasi Islami</h2>
+
+<section class="w-full py-space-2xl bg-surface overflow-hidden" id="berita-artikel">
+  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-8">
+    
+    <!-- Header & Tombol Navigasi Slider -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="flex flex-col gap-1.5 max-w-2xl">
+        <div class="inline-flex items-center gap-2 text-secondary-gold">
+          <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+          <span class="font-label text-xs uppercase tracking-widest font-bold">Program Masjid & SKI Indosat</span>
+        </div>
+        <h2 class="font-display text-3xl font-bold text-on-surface tracking-tight">
+          Kabar & Program Unggulan
+        </h2>
+        <p class="font-body text-sm md:text-base text-on-surface-variant">
+          Geser ke kanan untuk menjelajahi 8 program dakwah, pendidikan Al-Qur'an, dan layanan sosial Masjid Nurul Taqwa bersama SKI Indosat.
+        </p>
+      </div>
+
+      <!-- Tombol Geser Kiri / Kanan -->
+      <div class="flex items-center gap-2 self-end">
+        <button 
+          id="slide-prev-btn" 
+          type="button"
+          aria-label="Geser ke kiri"
+          class="w-11 h-11 rounded-xl bg-surface-container-lowest hover:bg-primary hover:text-on-primary text-on-surface border border-zinc-200/80 shadow-xs flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+        >
+          <span class="material-symbols-outlined text-[22px]">chevron_left</span>
+        </button>
+        <button 
+          id="slide-next-btn" 
+          type="button"
+          aria-label="Geser ke kanan"
+          class="w-11 h-11 rounded-xl bg-primary text-on-primary hover:bg-primary-container shadow-sm flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+        >
+          <span class="material-symbols-outlined text-[22px]">chevron_right</span>
+        </button>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-lg">
-      <article class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
-        <div class="h-40 bg-zinc-300 rounded-lg"></div>
-        <span class="text-xs text-primary font-bold">Berita Masjid</span>
-        <h3 class="font-display font-bold leading-snug">Semarak Safari Ramadhan PT Indosat Tbk</h3>
-        <p class="text-sm text-on-surface-variant">Rangkaian Safari Ramadhan 1447 H dihadiri jajaran Direksi IOH.</p>
-      </article>
-      <!-- Tambahkan artikel lain dengan pola serupa -->
+    <!-- Container Slider Horizontal (Snap Scroll) -->
+    <div 
+      id="program-slider" 
+      class="flex items-stretch gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 pt-1 -mx-2 px-2"
+    >
+      {programsData.map((item, idx) => (
+        <a 
+          href={`${baseUrl}/program/${item.slug}`}
+          class="snap-start shrink-0 w-[285px] sm:w-[320px] rounded-2xl bg-surface-container-lowest border border-zinc-200/70 hover:border-primary/40 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+        >
+          <div>
+            <!-- Gambar Header Card -->
+            <div class="relative h-44 w-full bg-zinc-200 overflow-hidden">
+              <img 
+                src={item.image} 
+                alt={item.title} 
+                loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent"></div>
+              
+              <!-- Nomor & Badge -->
+              <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur-xs text-primary font-label text-[10px] font-extrabold uppercase tracking-wider shadow-2xs">
+                  {item.badge}
+                </span>
+                <span class="w-7 h-7 rounded-full bg-black/50 backdrop-blur-xs text-white font-display text-xs font-bold flex items-center justify-center">
+                  0{idx + 1}
+                </span>
+              </div>
+
+              <!-- Icon & Kategori di Bawah Gambar -->
+              <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2 text-white">
+                <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center shadow-xs">
+                  <span class="material-symbols-outlined text-[18px]">{item.icon}</span>
+                </div>
+                <span class="font-label text-xs font-medium text-zinc-100">{item.category}</span>
+              </div>
+            </div>
+
+            <!-- Konten Teks Card -->
+            <div class="p-5 flex flex-col gap-2">
+              <h3 class="font-display text-lg font-bold text-on-surface group-hover:text-primary transition-colors leading-snug">
+                {item.title}
+              </h3>
+              <p class="font-body text-xs text-on-surface-variant leading-relaxed line-clamp-3">
+                {item.shortDesc}
+              </p>
+            </div>
+          </div>
+
+          <!-- Footer Card CTA -->
+          <div class="px-5 pb-5 pt-2">
+            <div class="w-full py-2.5 px-4 rounded-xl bg-surface-container-low group-hover:bg-primary group-hover:text-on-primary text-primary font-display text-xs font-bold flex items-center justify-between transition-colors">
+              <span>Lihat Halaman Program</span>
+              <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </div>
+          </div>
+        </a>
+      ))}
     </div>
+
   </div>
 </section>
+
+<script is:inline>
+  (function initProgramSlider() {
+    const slider = document.getElementById('program-slider');
+    const prevBtn = document.getElementById('slide-prev-btn');
+    const nextBtn = document.getElementById('slide-next-btn');
+
+    if (!slider) return;
+
+    const scrollStep = 340; // Lebar 1 kartu + gap
+
+    prevBtn?.addEventListener('click', () => {
+      slider.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      slider.scrollBy({ left: scrollStep, behavior: 'smooth' });
+    });
+  })();
+</script>

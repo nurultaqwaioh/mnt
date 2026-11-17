@@ -1,46 +1,113 @@
 ---
+import { Image } from 'astro:assets';
+
+// Pastikan file logo ZIS Indosat sudah berada di folder src/images/
+import logoZisIndosat from '../images/Logo ZIS.svg';
 ---
+
 <section class="w-full py-space-2xl bg-surface" id="zis">
-  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-space-xl">
-    <div class="text-center max-w-3xl mx-auto flex flex-col gap-space-xs">
-      <span class="font-label text-xs text-secondary-gold uppercase tracking-widest font-bold">Kebajikan & Berkah</span>
-      <h2 class="font-display text-3xl font-bold text-on-surface">Layanan Zakat, Infak & Sedekah</h2>
-      <p class="font-body text-base text-on-surface-variant">Salurkan kepedulian Anda melalui unit pengelola ZIS yang kredibel dan transparan di Masjid Nurul Taqwa.</p>
+  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-10">
+    
+    <!-- Header Seksi -->
+    <div class="text-center max-w-3xl mx-auto flex flex-col gap-2">
+      <div class="inline-flex items-center gap-2 text-secondary-gold justify-center">
+        <span class="material-symbols-outlined text-[18px]">volunteer_activism</span>
+        <span class="font-label text-xs uppercase tracking-widest font-bold">Gerbang Kebaikan & Kepedulian</span>
+      </div>
+      <h2 class="font-display text-3xl font-bold text-on-surface">Layanan Zakat, Infak, & Sedekah (ZIS)</h2>
+      <p class="font-body text-base text-on-surface-variant leading-relaxed">
+        Pahami penyaluran dana kebaikan Anda agar tepat sasaran sesuai dengan niat dan kebermanfaatan yang ingin dicapai.
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-start">
-      <!-- Calculator Form -->
-      <div class="lg:col-span-7 bg-surface-container-lowest p-space-xl rounded-2xl shadow-md flex flex-col gap-space-md">
-        <h3 class="font-display text-xl font-bold text-on-surface">Formulir Donasi Online</h3>
-        
-        <div class="grid grid-cols-3 gap-space-xs">
-          <button class="nominal-btn py-2 px-3 rounded-lg bg-primary-container text-on-primary font-label text-xs" onclick="setNominal('250.000')">Rp 250.000</button>
-          <button class="nominal-btn py-2 px-3 rounded-lg bg-surface-container text-on-surface font-label text-xs" onclick="setNominal('500.000')">Rp 500.000</button>
-          <button class="nominal-btn py-2 px-3 rounded-lg bg-surface-container text-on-surface font-label text-xs" onclick="setNominal('1.000.000')">Rp 1.000.000</button>
-        </div>
-
-        <input class="w-full p-3 border rounded-lg" id="custom-amount" type="text" value="250.000" />
-        <button class="w-full py-3 bg-primary-container hover:bg-primary text-on-primary font-display font-bold rounded-lg" type="button">Lanjutkan Pembayaran</button>
-      </div>
-
-      <!-- QRIS & Bank Info -->
-      <div class="lg:col-span-5 flex flex-col gap-space-md">
-        <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md flex flex-col items-center text-center gap-4">
-          <div class="text-left w-full">
-            <h4 class="font-display font-bold">QRIS Masjid Nurul Taqwa</h4>
-            <span class="text-xs text-on-surface-variant">NMID: ID1020084592019</span>
+    <!-- Perbandingan Edukatif (2 Kolom Flat Card) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      
+      <!-- KARTU 1: INFAQ OPERASIONAL MASJID (Fokus Internal Masjid) -->
+      <div class="p-6 rounded-2xl bg-surface-container-low/60 border border-zinc-200/50 flex flex-col justify-between gap-6">
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-2xl">mosque</span>
+            </div>
+            <div>
+              <h3 class="font-display text-base font-bold text-on-surface">Infaq Operasional Masjid</h3>
+              <span class="font-label text-[10px] text-primary uppercase font-bold tracking-wider">Internal Masjid Nurul Taqwa</span>
+            </div>
           </div>
-          <!-- Simple Simulated QR Code -->
-          <div class="w-40 h-40 bg-zinc-200 flex items-center justify-center font-label text-xs font-bold text-zinc-500 rounded-lg">QR CODE SCAN</div>
+          
+          <p class="font-body text-xs text-on-surface-variant leading-relaxed">
+            Dana sedekah khusus yang dialokasikan langsung untuk operasional harian, kebersihan, kenyamanan ruang ibadah, perawatan sarana prasarana fisik, kelistrikan AC, sound system, serta penyediaan hidangan konsumsi jamaah pada program rutin di <strong>Masjid Nurul Taqwa Lt. 4 Kantor Pusat Indosat</strong>.
+          </p>
+
+          <ul class="flex flex-col gap-2 pt-2 border-t border-zinc-200/40">
+            <li class="flex items-center gap-2 text-xs text-on-surface-variant">
+              <span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span>
+              <span>Perawatan fisik & kenyamanan Masjid Lt. 4</span>
+            </li>
+            <li class="flex items-center gap-2 text-xs text-on-surface-variant">
+              <span class="material-symbols-outlined text-green-600 text-[16px]">check_circle</span>
+              <span>Penyediaan nasi box Jum'at Berkah jamaah</span>
+            </li>
+          </ul>
         </div>
+
+        <a 
+          href="#kontak" 
+          class="w-fit inline-flex items-center gap-2 px-5 py-2.5 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface font-label text-xs font-semibold rounded-lg transition-all active:scale-95 cursor-pointer"
+        >
+          <span>Lihat Rekening BSI & QRIS Masjid (di Footer)</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+        </a>
       </div>
+
+      <!-- KARTU 2: ZIS INDOSAT (Penyaluran Mustahik Luas / Nasional) -->
+      <div class="p-6 rounded-2xl bg-white border-2 border-secondary-gold/30 shadow-sm flex flex-col justify-between gap-6 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-28 h-28 rounded-full bg-secondary-container/20 blur-xl pointer-events-none"></div>
+        
+        <div class="flex flex-col gap-4 relative z-10">
+          <div class="flex items-center justify-between gap-2 border-b border-zinc-100 pb-3">
+            <div class="flex items-center gap-3">
+              <!-- Logo ZIS Indosat dari src/images/ -->
+              <Image 
+                src={logoZisIndosat} 
+                alt="Logo ZIS Indosat" 
+                class="h-8 w-auto object-contain shrink-0"
+              />
+            </div>
+            <span class="inline-flex items-center gap-1 px-2 rounded bg-amber-100 text-amber-800 font-label text-[9px] font-bold uppercase tracking-wider">
+              LAZNAS Karyawan
+            </span>
+          </div>
+          
+          <p class="font-body text-xs text-on-surface-variant leading-relaxed">
+            Portal amil zakat resmi karyawan Indosat yang dikelola secara profesional berskala nasional. Dana zakat, infak, sedekah, dan wakaf Anda disalurkan secara luas untuk kesejahteraan asnaf mukallaf, beasiswa pendidikan dhuafa, tanggap bencana darurat nasional, kesehatan gratis, serta program pemberdayaan ekonomi produktif umat di berbagai pelosok Indonesia.
+          </p>
+
+          <ul class="flex flex-col gap-2 pt-1">
+            <li class="flex items-center gap-2 text-xs text-on-surface-variant">
+              <span class="material-symbols-outlined text-amber-600 text-[16px]">check_circle</span>
+              <span>Beasiswa anak asuh & bantuan darurat bencana</span>
+            </li>
+            <li class="flex items-center gap-2 text-xs text-on-surface-variant">
+              <span class="material-symbols-outlined text-amber-600 text-[16px]">check_circle</span>
+              <span>Pemberdayaan ekonomi umat & mustahik nasional</span>
+            </li>
+          </ul>
+        </div>
+
+        <a 
+          href="https://zisindosat.id/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#C5A059] hover:bg-[#fed488] text-emerald-950 font-display text-xs font-bold rounded-lg shadow-sm transition-all duration-200 active:scale-[0.98] cursor-pointer"
+        >
+          <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+          <span>Salurkan Lewat Portal Resmi ZIS Indosat</span>
+        </a>
+      </div>
+
     </div>
+
   </div>
 </section>
-
-<script is:inline>
-  function setNominal(amount) {
-    const input = document.getElementById('custom-amount');
-    if (input) input.value = amount;
-  }
-</script>

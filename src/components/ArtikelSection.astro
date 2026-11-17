@@ -1,0 +1,158 @@
+---
+import { artikelData } from '../data/artikel';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const categories = ['Semua', 'Berita', 'Fikih', 'Sirah', 'eBook'];
+---
+
+<section class="w-full py-space-2xl bg-surface border-t border-zinc-200/60" id="literasi-islami">
+  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-8">
+    
+    <!-- Header & Filter Kategori -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+      <div class="flex flex-col gap-1.5 max-w-2xl">
+        <div class="inline-flex items-center gap-2 text-secondary-gold">
+          <span class="material-symbols-outlined text-[18px]">library_books</span>
+          <span class="font-label text-xs uppercase tracking-widest font-bold">Pustaka & Literasi Umat</span>
+        </div>
+        <h2 class="font-display text-3xl font-bold text-on-surface tracking-tight">
+          Berita, Fikih, Sirah & eBook
+        </h2>
+        <p class="font-body text-sm md:text-base text-on-surface-variant">
+          Kumpulan liputan kegiatan masjid, kajian fikih muamalah kontemporer, keteladanan sirah nabawiyah, serta unduhan eBook islami gratis.
+        </p>
+      </div>
+
+      <!-- Tombol Filter Tab -->
+      <div class="flex flex-wrap items-center gap-2" id="home-artikel-tabs">
+        {categories.map((cat, idx) => (
+          <button
+            type="button"
+            data-filter={cat}
+            class={`artikel-tab-btn px-4 py-2 rounded-xl font-label text-xs font-bold transition-all cursor-pointer ${
+              idx === 0
+                ? 'bg-primary text-on-primary shadow-xs'
+                : 'bg-surface-container-lowest text-on-surface-variant hover:text-primary border border-zinc-200/80'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Grid Kartu Artikel & eBook -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="home-artikel-grid">
+      {artikelData.slice(0, 6).map((item) => (
+        <article 
+          data-category={item.category}
+          class="artikel-card-item rounded-2xl bg-surface-container-lowest border border-zinc-200/70 hover:border-primary/40 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+        >
+          <div>
+            <!-- Thumbnail -->
+            <a href={`${baseUrl}/artikel/${item.slug}`} class="block relative h-48 w-full bg-zinc-200 overflow-hidden">
+              <img 
+                src={item.image} 
+                alt={item.title} 
+                loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              
+              <!-- Badge Kategori -->
+              <div class="absolute top-3 left-3 flex items-center gap-2">
+                <span class={`px-3 py-1 rounded-lg font-label text-[10px] font-extrabold uppercase tracking-wider shadow-xs ${
+                  item.category === 'eBook' 
+                    ? 'bg-[#C5A059] text-emerald-950' 
+                    : item.category === 'Fikih'
+                    ? 'bg-[#033823] text-white'
+                    : 'bg-white/95 text-primary'
+                }`}>
+                  {item.category}
+                </span>
+              </div>
+
+              <!-- Meta Waktu Baca / Ukuran PDF -->
+              <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-xs text-white font-label text-[10px] font-semibold">
+                {item.readTime}
+              </span>
+            </a>
+
+            <!-- Konten Teks -->
+            <div class="p-5 flex flex-col gap-2.5">
+              <div class="flex items-center justify-between text-[11px] font-label text-on-surface-variant">
+                <span>{item.date}</span>
+                <span class="font-semibold text-primary truncate max-w-[160px]">{item.author}</span>
+              </div>
+
+              <a href={`${baseUrl}/artikel/${item.slug}`}>
+                <h3 class="font-display text-base font-bold text-on-surface group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                  {item.title}
+                </h3>
+              </a>
+
+              <p class="font-body text-xs text-on-surface-variant leading-relaxed line-clamp-3">
+                {item.excerpt}
+              </p>
+            </div>
+          </div>
+
+          <!-- Footer Card -->
+          <div class="px-5 pb-5 pt-2">
+            <a 
+              href={`${baseUrl}/artikel/${item.slug}`}
+              class="w-full py-2.5 px-4 rounded-xl bg-surface-container-low group-hover:bg-primary group-hover:text-on-primary text-primary font-display text-xs font-bold flex items-center justify-between transition-colors"
+            >
+              <span>{item.category === 'eBook' ? 'Baca & Unduh eBook PDF' : 'Baca Selengkapnya'}</span>
+              <span class="material-symbols-outlined text-[16px]">
+                {item.category === 'eBook' ? 'download' : 'arrow_forward'}
+              </span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Tombol Lihat Semua Pustaka -->
+    <div class="flex justify-center pt-2">
+      <a 
+        href={`${baseUrl}/artikel`}
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#033823] hover:bg-emerald-900 text-white font-display text-xs font-bold shadow-sm transition-all"
+      >
+        <span class="material-symbols-outlined text-[18px] text-[#C5A059]">menu_book</span>
+        <span>Buka Halaman Pustaka Lengkap (Berita, Fikih, Sirah & eBook)</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  (function initHomeArtikelFilter() {
+    const buttons = document.querySelectorAll('.artikel-tab-btn');
+    const cards = document.querySelectorAll('.artikel-card-item');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const selected = btn.getAttribute('data-filter');
+
+        buttons.forEach((b) => {
+          b.className = 'artikel-tab-btn px-4 py-2 rounded-xl font-label text-xs font-bold transition-all cursor-pointer bg-surface-container-lowest text-on-surface-variant hover:text-primary border border-zinc-200/80';
+        });
+        btn.className = 'artikel-tab-btn px-4 py-2 rounded-xl font-label text-xs font-bold transition-all cursor-pointer bg-primary text-on-primary shadow-xs';
+
+        cards.forEach((card) => {
+          const cat = card.getAttribute('data-category');
+          if (selected === 'Semua' || cat === selected) {
+            card.classList.remove('hidden');
+            card.classList.add('flex');
+          } else {
+            card.classList.remove('flex');
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  })();
+</script>

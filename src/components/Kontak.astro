@@ -1,23 +1,71 @@
 ---
+// src/components/Kontak.astro
 ---
+
 <section class="w-full py-space-2xl bg-surface" id="kontak">
   <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-space-xl">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg">
+      
+      <!-- Detail Kontak -->
       <div class="lg:col-span-6 flex flex-col gap-4">
-        <h2 class="font-display text-2xl font-bold text-on-surface">Sekretariat SKI Indosat</h2>
-        <p class="text-sm text-on-surface-variant">Lantai Dasar Masjid Nurul Taqwa Gedung Pusat PT Indosat Tbk, Jl. Medan Merdeka Barat No.11, Jakarta Pusat.</p>
-        <span class="font-label text-sm text-primary font-bold">Hotline: +62 857-7310-1357</span>
+        <h2 class="font-display text-2xl font-bold text-on-surface">Sekretariat DKM</h2>
+        <p class="text-sm text-on-surface-variant">Lantai 4 Gedung Pusat PT Indosat Tbk, Jl. Medan Merdeka Barat No.21, Jakarta Pusat.</p>
+        <span class="font-label text-sm text-primary font-bold">Hotline: +62 815-8507-9225</span>
       </div>
 
+      <!-- Formulir Pertanyaan (Hubungkan ke Email Native dengan Aman) -->
       <div class="lg:col-span-6 bg-surface-container-lowest p-6 rounded-2xl shadow-lg border border-zinc-100">
         <h3 class="font-display font-bold text-lg mb-4">Kirim Pertanyaan</h3>
-        <form class="flex flex-col gap-4">
-          <input class="p-2.5 border rounded-lg w-full" type="text" placeholder="Nama Lengkap" />
-          <input class="p-2.5 border rounded-lg w-full" type="email" placeholder="Alamat Email" />
-          <textarea class="p-2.5 border rounded-lg w-full" rows="3" placeholder="Pesan Anda"></textarea>
-          <button class="py-2.5 bg-primary text-on-primary font-bold rounded-lg" type="submit">Kirim Pesan</button>
+        
+        <form id="contact-form" class="flex flex-col gap-4">
+          <input id="form-name" class="p-2.5 border rounded-lg w-full focus:ring-2 focus:ring-primary focus:outline-none" type="text" placeholder="Nama Lengkap" required />
+          <input id="form-email" class="p-2.5 border rounded-lg w-full focus:ring-2 focus:ring-primary focus:outline-none" type="email" placeholder="Alamat Email" required />
+          <textarea id="form-message" class="p-2.5 border rounded-lg w-full focus:ring-2 focus:ring-primary focus:outline-none" rows="3" placeholder="Pesan atau Pertanyaan Anda" required></textarea>
+          
+          <button class="py-2.5 bg-primary hover:bg-primary-container text-on-primary font-bold rounded-lg transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2" type="submit">
+            <span class="material-symbols-outlined text-[18px]">send</span>
+            <span>Kirim Pesan</span>
+          </button>
         </form>
       </div>
+
     </div>
   </div>
 </section>
+
+<script is:inline>
+  document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('form-name').value;
+    const email = document.getElementById('form-email').value;
+    const message = document.getElementById('form-message').value;
+    
+    const targetEmail = 'masjidnurultaqwa@ioh.co.id';
+    const subject = encodeURIComponent('Pertanyaan Portal Masjid Nurul Taqwa');
+    
+    // Format isi email dengan baris baru yang rapi
+    const body = encodeURIComponent(
+      `Nama Pengirim: ${name}\n` +
+      `Email Pengirim: ${email}\n\n` +
+      `Isi Pertanyaan / Pesan:\n${message}`
+    );
+    
+    // Solusi Jitu: Membuat elemen tautan jangkar virtual (hidden anchor link)
+    // dan mengaturnya untuk membuka di tab/aplikasi baru (_blank)
+    const mailtoLink = document.createElement('a');
+    mailtoLink.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+    mailtoLink.target = '_blank';
+    
+    // Trigger klik virtual
+    document.body.appendChild(mailtoLink);
+    mailtoLink.click();
+    
+    // Bersihkan elemen virtual dari DOM
+    document.body.removeChild(mailtoLink);
+  });
+</script>
+
+
+
+

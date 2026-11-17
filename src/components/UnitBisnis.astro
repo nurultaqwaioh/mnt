@@ -1,35 +1,91 @@
+---
+import { usahaData } from '../data/usaha';
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
 
----
----
-<section class="w-full py-space-2xl bg-surface-container-low" id="unit-bisnis">
-  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-space-xl">
-    <div class="flex flex-col gap-space-xs max-w-2xl">
-      <span class="font-label text-xs text-secondary-gold uppercase tracking-widest font-bold">Kemandirian Finansial</span>
-      <h2 class="font-display text-3xl font-bold text-on-surface">Unit Usaha Masjid</h2>
+<section class="w-full py-space-2xl bg-surface-container-low overflow-hidden" id="unit-bisnis">
+  <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-col gap-8">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="flex flex-col gap-1.5 max-w-2xl">
+        <div class="inline-flex items-center gap-2 text-secondary-gold">
+          <span class="material-symbols-outlined text-[18px]">storefront</span>
+          <span class="font-label text-xs uppercase tracking-widest font-bold">Kemandirian Finansial Berkah</span>
+        </div>
+        <h2 class="font-display text-3xl font-bold text-on-surface tracking-tight">
+          Unit Usaha & Ekonomi Umat
+        </h2>
+        <p class="font-body text-sm md:text-base text-on-surface-variant">
+          Mewujudkan kemandirian ekonomi masjid melalui tata kelola usaha syar'i. 100% keuntungan kembali ke kas dakwah.
+        </p>
+      </div>
+
+      <!-- Tombol Navigasi Slider -->
+      <div class="flex items-center gap-2 self-end">
+        <button id="usaha-prev-btn" type="button" class="w-11 h-11 rounded-xl bg-surface-container-lowest hover:bg-primary hover:text-on-primary text-on-surface border border-zinc-200/80 shadow-xs flex items-center justify-center transition-all cursor-pointer">
+          <span class="material-symbols-outlined text-[22px]">chevron_left</span>
+        </button>
+        <button id="usaha-next-btn" type="button" class="w-11 h-11 rounded-xl bg-primary text-on-primary hover:bg-primary-container shadow-sm flex items-center justify-center transition-all cursor-pointer">
+          <span class="material-symbols-outlined text-[22px]">chevron_right</span>
+        </button>
+      </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-lg">
-      <div class="rounded-2xl bg-surface-container-lowest overflow-hidden shadow-sm">
-        <div class="h-48 bg-zinc-300"></div>
-        <div class="p-space-lg">
-          <h3 class="font-display text-lg font-bold">Taqwa Mart & Sembako</h3>
-          <p class="text-sm text-on-surface-variant mt-2">Menyediakan aneka kebutuhan pokok halal dan kebutuhan harian jamaah.</p>
-        </div>
-      </div>
-      <div class="rounded-2xl bg-surface-container-lowest overflow-hidden shadow-sm">
-        <div class="h-48 bg-zinc-300"></div>
-        <div class="p-space-lg">
-          <h3 class="font-display text-lg font-bold">Taqwa Coffee Corner</h3>
-          <p class="text-sm text-on-surface-variant mt-2">Ruang diskusi hangat dengan sajian kopi Nusantara pilihan karyawan.</p>
-        </div>
-      </div>
-      <div class="rounded-2xl bg-surface-container-lowest overflow-hidden shadow-sm">
-        <div class="h-48 bg-zinc-300"></div>
-        <div class="p-space-lg">
-          <h3 class="font-display text-lg font-bold">Aula & Hall Rental</h3>
-          <p class="text-sm text-on-surface-variant mt-2">Fasilitas akad nikah syar'i dan gathering korporat bernuansa islami.</p>
-        </div>
-      </div>
+    <!-- Container Slider Usaha -->
+    <div id="usaha-slider" class="flex items-stretch gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 pt-1 -mx-2 px-2">
+      {usahaData.map((item, idx) => (
+        <a href={`${baseUrl}/usaha/${item.slug}`} class="snap-start shrink-0 w-[285px] sm:w-[320px] rounded-2xl bg-surface-container-lowest border border-zinc-200/70 hover:border-primary/40 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+          <div>
+            <div class="relative h-44 w-full bg-zinc-200 overflow-hidden">
+              <img src={item.image} alt={item.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent"></div>
+              <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-white/95 text-primary font-label text-[10px] font-extrabold uppercase tracking-wider shadow-2xs">
+                  {item.badge}
+                </span>
+                <span class="w-7 h-7 rounded-full bg-black/50 text-white font-display text-xs font-bold flex items-center justify-center">
+                  0{idx + 1}
+                </span>
+              </div>
+              <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2 text-white">
+                <span class="material-symbols-outlined text-[18px] text-[#C5A059]">{item.icon}</span>
+                <span class="font-label text-xs font-medium text-zinc-100">{item.category}</span>
+              </div>
+            </div>
+            <div class="p-5 flex flex-col gap-2">
+              <h3 class="font-display text-lg font-bold text-on-surface group-hover:text-primary transition-colors leading-snug">
+                {item.title}
+              </h3>
+              <p class="font-body text-xs text-on-surface-variant leading-relaxed line-clamp-3">
+                {item.shortDesc}
+              </p>
+            </div>
+          </div>
+          <div class="px-5 pb-5 pt-2">
+            <div class="w-full py-2.5 px-4 rounded-xl bg-surface-container-low group-hover:bg-primary group-hover:text-on-primary text-primary font-display text-xs font-bold flex items-center justify-between transition-colors">
+              <span>Detail Unit Usaha</span>
+              <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </div>
+          </div>
+        </a>
+      ))}
     </div>
+
   </div>
 </section>
+
+<script is:inline>
+  (function initUsahaSlider() {
+    const slider = document.getElementById('usaha-slider');
+    const prevBtn = document.getElementById('usaha-prev-btn');
+    const nextBtn = document.getElementById('usaha-next-btn');
+    if (!slider) return;
+    const scrollStep = 340;
+    prevBtn?.addEventListener('click', () => {
+      slider.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+    });
+    nextBtn?.addEventListener('click', () => {
+      slider.scrollBy({ left: scrollStep, behavior: 'smooth' });
+    });
+  })();
+</script>

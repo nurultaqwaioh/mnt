@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { programsData, type ProgramItem } from '../../data/program';
+
+export function getStaticPaths() {
+  return programsData.map((program) => ({
+    params: { slug: program.slug },
+    props: { program },
+  }));
+}
+
+interface Props {
+  program: ProgramItem;
+}
+
+const { program } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Rekomendasi program lainnya di bagian bawah halaman
+const otherPrograms = programsData.filter((p) => p.slug !== program.slug).slice(0, 3);
+---
+
+<Layout title={`${program.title} - Program Masjid Nurul Taqwa & SKI Indosat`}>
+  <Header />
+
+  <main class="w-full pt-20 bg-surface min-h-screen">
+    <!-- Hero Banner Landing Page Program -->
+    <section class="relative w-full bg-[#033823] text-white py-14 lg:py-20 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg relative z-10 flex flex-col gap-6">
+        
+        <!-- Breadcrumb & Tombol Kembali -->
+        <div class="flex items-center gap-2 text-xs font-label text-zinc-300">
+          <a href={`${baseUrl}/`} class="hover:text-[#C5A059] flex items-center gap-1 transition-colors">
+            <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+            <span>Kembali ke Beranda</span>
+          </a>
+          <span>/</span>
+          <span class="text-[#C5A059] font-semibold">{program.title}</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 flex flex-col gap-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#C5A059] font-label text-xs font-bold uppercase tracking-wider w-fit">
+              <span class="material-symbols-outlined text-[16px]">{program.icon}</span>
+              <span>{program.category} &bull; {program.badge}</span>
+            </div>
+
+            <h1 class="font-display text-3xl md:text-5xl font-bold leading-tight">
+              {program.title}
+            </h1>
+
+            <p class="font-body text-base md:text-lg text-zinc-200 leading-relaxed">
+              {program.shortDesc}
+            </p>
+
+            <div class="pt-2 flex flex-wrap items-center gap-4">
+              <a 
+                href={program.ctaLink}
+                class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#C5A059] hover:bg-[#fed488] text-emerald-950 font-display text-sm font-extrabold shadow-md transition-all"
+              >
+                <span>{program.ctaText}</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="rounded-2xl overflow-hidden shadow-2xl border-2 border-white/15 h-64 md:h-80">
+              <img src={program.image} alt={program.title} class="w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Detail Penjelasan & Keunggulan Program -->
+    <section class="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg py-12 lg:py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        
+        <!-- Deskripsi Lengkap -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+          <h2 class="font-display text-2xl font-bold text-on-surface">Tentang Program {program.title}</h2>
+          <p class="font-body text-base text-on-surface-variant leading-relaxed">
+            {program.fullDesc}
+          </p>
+
+          <div class="mt-4 p-6 rounded-2xl bg-surface-container-low border border-zinc-200/70 flex flex-col gap-3">
+            <h3 class="font-display text-base font-bold text-on-surface flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">verified</span>
+              <span>Poin Utama & Manfaat Program</span>
+            </h3>
+            <ul class="flex flex-col gap-2.5">
+              {program.highlights.map((point) => (
+                <li class="flex items-start gap-2.5 font-body text-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-green-600 text-[18px] shrink-0 mt-0.5">check_circle</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Box Informasi Pendaftaran / Partisipasi -->
+        <div class="lg:col-span-5">
+          <div class="p-6 rounded-2xl bg-surface-container-lowest border border-zinc-200 shadow-sm flex flex-col gap-4 sticky top-28">
+            <span class="font-label text-xs font-bold uppercase tracking-wider text-primary">Informasi Partisipasi</span>
+            <h3 class="font-display text-xl font-bold text-on-surface">Ingin Berkontribusi atau Mendaftar?</h3>
+            <p class="font-body text-xs text-on-surface-variant leading-relaxed">
+              Seluruh kegiatan dikelola secara transparan oleh DKM Masjid Nurul Taqwa dan SKI PT Indosat Tbk. Hubungi sekretariat kami untuk informasi lebih lanjut.
+            </p>
+            <a 
+              href={program.ctaLink}
+              class="w-full py-3 px-4 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-display text-xs font-bold text-center transition-colors flex items-center justify-center gap-2"
+            >
+              <span>{program.ctaText}</span>
+              <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Program Lainnya -->
+      <div class="mt-16 pt-10 border-t border-zinc-200 flex flex-col gap-6">
+        <h3 class="font-display text-xl font-bold text-on-surface">Jelajahi Program Lainnya</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {otherPrograms.map((other) => (
+            <a 
+              href={`${baseUrl}/program/${other.slug}`}
+              class="p-4 rounded-xl bg-surface-container-lowest border border-zinc-200/80 hover:border-primary/40 flex items-center gap-4 group transition-all"
+            >
+              <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white flex items-center justify-center shrink-0 transition-colors">
+                <span class="material-symbols-outlined">{other.icon}</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-display text-sm font-bold text-on-surface group-hover:text-primary transition-colors">{other.title}</span>
+                <span class="font-label text-[11px] text-on-surface-variant">{other.category}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
